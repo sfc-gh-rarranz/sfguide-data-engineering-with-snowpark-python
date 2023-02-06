@@ -30,7 +30,7 @@ def load_raw_table(session, tname=None, s3dir=None, year=None, schema=None):
         print('\tLoading year {}'.format(year)) 
         location = "@external.frostbyte_raw_stage/{}/{}/year={}".format(s3dir, tname, year)
     
-    # we can infer schema using the parquet read option
+    # we can infer schema using the parquet read option -- schema detection
     df = session.read.option("compression", "snappy") \
                             .parquet(location)
     df.copy_into_table("{}".format(tname))
